@@ -6,7 +6,7 @@
  * Time: 14:26
  */
 
-namespace Wabel\Utils\ThreadsIo;
+namespace Wabel\ThreadsIo;
 
 
 use GuzzleHttp\Client;

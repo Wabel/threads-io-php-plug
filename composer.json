@@ -20,12 +20,12 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Wabel\\Threads.io\\" : "src"
+			"Wabel\\ThreadsIo\\" : "src"
 		}
 	},
     "autoload-dev" : {
   	    "psr-4" : {
-          "Wabel\\Threads.io\\" : "tests"
+          "Wabel\\ThreadsIo\\" : "tests"
 	    }
     }
 }

@@ -6,10 +6,11 @@
  * Time: 14:29
  */
 
-namespace Wabel\Utils\ThreadsIo;
+namespace Wabel\ThreadsIo\Entities;
 
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Wabel\ThreadsIo\Interfaces\ThreadableInterface;
 
 /**
  * Class User

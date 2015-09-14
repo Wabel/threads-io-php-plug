@@ -6,7 +6,7 @@
  * Time: 15:05
  */
 
-namespace Wabel\Utils\ThreadsIo;
+namespace Wabel\ThreadsIo\Interfaces;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**

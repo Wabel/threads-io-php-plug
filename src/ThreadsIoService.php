@@ -6,7 +6,7 @@
  * Time: 14:19
  */
 
-namespace Wabel\Utils\ThreadsIo;
+namespace Wabel\ThreadsIo;
 
 
 /**
