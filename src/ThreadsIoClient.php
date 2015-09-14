@@ -23,6 +23,12 @@ class ThreadsIoClient {
      * @var Client
      */
     private $httpClient;
+    private $eventKey;
+
+    public function __construct($eventKey, Client $httpClient) {
+        $this->httpClient = $httpClient;
+        $this->eventKey = $eventKey;
+    }
 
     public function identify($userId, $timestamp, $traits) {
         $request = $this->createRequest(self::IDENTIFY_ACTION);
@@ -56,7 +62,7 @@ class ThreadsIoClient {
     }
 
     private function createRequest($action) {
-        return $request = $this->httpClient->createRequest("POST", $action);
+        return $request = $this->httpClient->createRequest("POST", $action, ['auth' => [$this->eventKey]]);
     }
 
     private function call($request) {
