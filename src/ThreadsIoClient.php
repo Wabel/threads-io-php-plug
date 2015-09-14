@@ -10,6 +10,7 @@ namespace Wabel\ThreadsIo;
 
 
 use GuzzleHttp\Client;
+use \Wabel\ThreadsIo\Response\Response;
 
 class ThreadsIoClient {
 
@@ -60,14 +61,6 @@ class ThreadsIoClient {
 
     private function call($request) {
         $response = $this->httpClient->send($request);
-
-        $zohoResponse =  new Response($response->getBody()->__toString(), $module, $command);
-
-        if ($zohoResponse->ifSuccess()) {
-            return $zohoResponse;
-        } else {
-            throw new ZohoCRMResponseException($zohoResponse);
-        }
-
+        return new Response($response->getBody());
     }
 }

@@ -39,10 +39,10 @@ class User {
 
     /**
      * Return an arra
-     * @return array
+     * @return JsonResponse
      */
     public function getTraits() {
-        return json_decode($this->getUser()->getThreadIoTraits());
+        return $this->getUser()->getThreadIoTraits();
     }
 
     /**
