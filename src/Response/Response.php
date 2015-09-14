@@ -7,8 +7,6 @@
  */
 
 namespace Wabel\ThreadsIo\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class Response {
