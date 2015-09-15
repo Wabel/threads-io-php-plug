@@ -24,14 +24,14 @@
         >
 
     <testsuites>
-        <testsuite name="ZohoCRM ORM test suite">
+        <testsuite name="Threads.io test suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
     <php>
         <!-- PLEASE CONFIGURE AUTH TOKEN BELOW IN COPIED FILE -->
-        <var name="auth_token" value="88b381c26e3356ebc80413a7d955ac1b"/>
+        <var name="eventKey" value="c2e3d369f9e4a4281c5b6ffe50c2390d50f540215bb75572"/>
     </php>
 
 </phpunit>
