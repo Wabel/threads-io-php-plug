@@ -20,9 +20,13 @@ class ThreadsIoClient {
     const REMOVE_ACTION = "remove";
 
     /**
-     * @var Client
+     * @var Client $httpClient
      */
     private $httpClient;
+
+    public function __construct(Client $httpClient) {
+        $this->httpClient;
+    }
 
     public function identify($userId, $timestamp, $traits) {
         $request = $this->createRequest(self::IDENTIFY_ACTION);
@@ -31,6 +35,7 @@ class ThreadsIoClient {
         $request->getBody()->setField("traits", $traits);
         return $this->call($request);
     }
+
     public function track($userId, $event, $timestamp, $properties) {
         $request = $this->createRequest(self::TRACK_ACTION);
         $request->getBody()->setField("userId", $userId);
@@ -39,6 +44,7 @@ class ThreadsIoClient {
         $request->getBody()->setField("properties", $properties);
         return $this->call($request);
     }
+
     public function page($eventKey, $userId, $name, $properties, $timestamp) {
         $request = $this->createRequest(self::VISIT_ACTION);
         $request->getBody()->setField("eventKey", $eventKey);
@@ -48,6 +54,7 @@ class ThreadsIoClient {
         $request->getBody()->setField("timestamp", $timestamp);
         return $this->call($request);
     }
+
     public function remove($userId, $timestamp) {
         $request = $this->createRequest(self::REMOVE_ACTION);
         $request->getBody()->setField("userId", $userId);
