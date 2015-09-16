@@ -9,7 +9,6 @@
 namespace Wabel\ThreadsIo;
 use Wabel\ThreadsIo\Entities\User;
 use Wabel\ThreadsIo\Interfaces\ThreadableInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Wabel\ThreadsIo\Entities\Event;
 
 
@@ -71,7 +70,9 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        $response = $this->getThreadsIoClient()->identify($user->getUserId(), $datetime, (string)$user->getTraits());
+        $traits = json_encode($user->getTraits());
+
+        $response = $this->getThreadsIoClient()->identify($user->getUserId(), $datetime, $traits);
         return $response->isSuccess();
     }
 
@@ -96,11 +97,15 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        if(!$properties instanceof JsonResponse){
+        if(is_array($properties)){
+            $properties = json_encode($properties);
+        }
+        else {
             throw new ThreadIoPlugException();
         }
 
-        $response = $this->getThreadsIoClient()->track($user->getUserId(), $event->getEventId(), $timestamp, (string)$properties);
+
+        $response = $this->getThreadsIoClient()->track($user->getUserId(), $event->getEventId(), $timestamp, $properties);
         return $response->isSuccess();
     }
 
@@ -124,11 +129,16 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        if(!$properties instanceof JsonResponse){
+        if(is_array($properties)){
+            $properties = json_encode($properties);
+        }
+        else {
             throw new ThreadIoPlugException();
         }
 
-        $response = $this->getThreadsIoClient()->page($event->getEventId(), $user->getUserId(), $pageTitle,(string)$properties, $timestamp);
+        $properties = json_encode($properties);
+
+        $response = $this->getThreadsIoClient()->page($event->getEventId(), $user->getUserId(), $pageTitle, $properties, $timestamp);
         return $response->isSuccess();
     }
 

@@ -25,7 +25,7 @@ interface ThreadableInterface {
 
     /**
      * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return JsonResponse - A JsonResponse object containing the information to be logged in Threads.io
+     * @return array - An array object containing the information to be logged in Threads.io
      * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
      */
     public function getThreadIoTraits();
