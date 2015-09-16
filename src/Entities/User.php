@@ -8,8 +8,6 @@
 
 namespace Wabel\ThreadsIo\Entities;
 
-
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Wabel\ThreadsIo\Interfaces\ThreadableInterface;
 
 /**

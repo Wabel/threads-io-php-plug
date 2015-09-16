@@ -7,7 +7,6 @@
  */
 
 namespace Wabel\ThreadsIo\Interfaces;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Implements the ability for user entity to be tracked by Threads.io
