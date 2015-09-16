@@ -38,8 +38,8 @@ class User {
     }
 
     /**
-     * Return an arra
-     * @return JsonResponse
+     * Return an array
+     * @return array
      */
     public function getTraits() {
         return $this->getUser()->getThreadIoTraits();
