@@ -78,6 +78,7 @@ class ThreadsIoService {
     /**
      * @param User $user
      * @param \DateTime $datetime
+     * @param Event $event
      */
     public function track(User $user, Event $event, $properties = null, $datetime = null) {
         if($datetime === null) {

@@ -45,9 +45,9 @@ class ThreadsIoClient {
         $request->getBody()->setField("properties", $properties);
         return $this->call($request);
     }
-    public function page($eventKey, $userId, $name, $properties, $timestamp) {
+    public function page($userId, $name, $properties, $timestamp) {
         $request = $this->createRequest(self::VISIT_ACTION);
-        $request->getBody()->setField("eventKey", $eventKey);
+        $request->getBody()->setField("eventKey", $this->getEventKey());
         $request->getBody()->setField("userId", $userId);
         $request->getBody()->setField("name", $name);
         $request->getBody()->setField("properties", $properties);
@@ -68,5 +68,37 @@ class ThreadsIoClient {
     private function call($request) {
         $response = $this->httpClient->send($request);
         return new Response($response->getBody());
+    }
+
+    /**
+     * @return Client
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
+    }
+
+    /**
+     * @param Client $httpClient
+     */
+    public function setHttpClient($httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEventKey()
+    {
+        return $this->eventKey;
+    }
+
+    /**
+     * @param mixed $eventKey
+     */
+    public function setEventKey($eventKey)
+    {
+        $this->eventKey = $eventKey;
     }
 }
