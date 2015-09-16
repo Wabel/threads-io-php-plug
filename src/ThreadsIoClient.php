@@ -25,8 +25,8 @@ class ThreadsIoClient {
     private $httpClient;
     private $eventKey;
 
-    public function __construct($eventKey, Client $httpClient) {
-        $this->httpClient = $httpClient;
+    public function __construct($eventKey) {
+        $this->httpClient = new Client(['base_uri' => 'https://input.threads.io/v1/']);
         $this->eventKey = $eventKey;
     }
 
@@ -63,6 +63,12 @@ class ThreadsIoClient {
         return $this->call($request);
     }
 
+    /**
+     * @param $action
+     * @param string $base_url You can set your $base_url here.
+     *               The preferred way is to initialize the GuzzleHttp\Client with the parameter [
+     * @return \GuzzleHttp\Message\RequestInterface
+     */
     private function createRequest($action) {
         return $request = $this->httpClient->createRequest("POST", $action, ['auth' => [$this->eventKey]]);
     }
