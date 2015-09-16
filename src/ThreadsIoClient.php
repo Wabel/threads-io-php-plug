@@ -37,6 +37,7 @@ class ThreadsIoClient {
         $request->getBody()->setField("traits", $traits);
         return $this->call($request);
     }
+
     public function track($userId, $event, $timestamp, $properties) {
         $request = $this->createRequest(self::TRACK_ACTION);
         $request->getBody()->setField("userId", $userId);
@@ -54,6 +55,7 @@ class ThreadsIoClient {
         $request->getBody()->setField("timestamp", $timestamp);
         return $this->call($request);
     }
+
     public function remove($userId, $timestamp) {
         $request = $this->createRequest(self::REMOVE_ACTION);
         $request->getBody()->setField("userId", $userId);
