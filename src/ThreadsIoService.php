@@ -8,6 +8,7 @@
 
 namespace Wabel\ThreadsIo;
 use Wabel\ThreadsIo\Entities\User;
+use Wabel\ThreadsIo\Exceptions\ThreadsIoPlugException;
 use Wabel\ThreadsIo\Interfaces\ThreadableInterface;
 use Wabel\ThreadsIo\Entities\Event;
 
@@ -44,26 +45,20 @@ class ThreadsIoService {
      */
     public function setThreadsIoClient($threadsIoClient)
     {
-        $this->threadsIoClient = $threadsIoClient;
+        $this->setThreadsIoClient($threadsIoClient);
     }
 
     /**
      * @param ThreadableInterface $user
-     * @param \DateTime $datetime
+     * @param \DateTimeImmutable $datetime
      */
-    public function identify(ThreadableInterface $user, $datetime = null) {
+    public function identify(ThreadableInterface $user, \DateTimeImmutable $datetime = null) {
         if($datetime === null) {
-            $datetime = time();
-        }
-        elseif($datetime instanceof \DateTime){
-            $datetime = $datetime->getTimestamp();
-        }
-        else {
-            throw new ThreadIoPlugException();
+            $datetime = new \DateTimeImmutable();
         }
 
         if(!is_array($user->getThreadIoTraits())){
-            throw new ThreadIoPlugException();
+            throw new ThreadsIoPlugException("The traits you passed to the user are wrong. Please verify its format and value.");
         }
 
         $response = $this->getThreadsIoClient()->identify($user->getThreadIoId(), $datetime, $user->getThreadIoTraits());
@@ -75,75 +70,52 @@ class ThreadsIoService {
      * @param \DateTime $datetime
      * @param Event $event
      */
-    public function track(ThreadableInterface $user, Event $event, $properties = null, $datetime = null) {
-        if($datetime === null) {
-            if($event->getDateTime()) {
-                $timestamp = $event->getDateTime()->getTimestamp();
-            }
-            else {
-                $timestamp = time();
-            }
+    public function track(ThreadableInterface $user, Event $event, $properties = null, \DateTimeImmutable $datetime = null) {
+        if($event->getDateTime()) {
+            $datetime = $event->getDateTime();
         }
-        elseif($datetime instanceof \DateTime){
-            $timestamp = $datetime->getTimestamp();
-        }
-        else {
-            throw new ThreadIoPlugException();
+        elseif($datetime === null) {
+            $datetime = new \DateTimeImmutable();
         }
 
         if(!is_array($properties)){
-            throw new ThreadIoPlugException();
+            throw new ThreadsIoPlugException("The properties you passed to the tracking function are wrong. Please verify its format and value.");
         }
 
 
-        $response = $this->getThreadsIoClient()->track($user->getUserId(), $event->getEventId(), $timestamp, $properties);
+        $response = $this->getThreadsIoClient()->track($user->getThreadIoId(), $event->getEventId(), $datetime, $properties);
         return $response->isSuccess();
     }
 
     /**
      * @param User $user
-     * @param \DateTime $datetime
+     * @param \DateTimeImmutable $datetime
      */
-    public function page(Event $event, ThreadableInterface $user, $pageTitle, $properties = null, $datetime = null) {
+    public function page(ThreadableInterface $user, $pageTitle, $properties = null, \DateTimeImmutable $datetime = null) {
+
         if($datetime === null) {
-            if($event->getDateTime()) {
-                $timestamp = $event->getDateTime()->getTimestamp();
-            }
-            else {
-                $timestamp = time();
-            }
-        }
-        elseif($datetime instanceof \DateTime){
-            $timestamp = $datetime->getTimestamp();
-        }
-        else {
-            throw new ThreadIoPlugException();
+            $datetime = new \DateTimeImmutable();
         }
 
         if(!is_array($properties)){
-            throw new ThreadIoPlugException();
+            throw new ThreadsIoPlugException();
         }
 
-        $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $pageTitle, $properties, $timestamp);
+        $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $pageTitle, $properties, $datetime);
         return $response->isSuccess();
     }
 
     /**
      * @param User $user
-     * @param \DateTime $datetime
+     * @param \DateTimeImmutable $datetime
      */
-    public function remove(ThreadableInterface $user, $datetime = null) {
+    public function remove(ThreadableInterface $user, \DateTimeImmutable $datetime = null) {
+
         if($datetime === null) {
-            $timestamp = time();
-        }
-        elseif($datetime instanceof \DateTime){
-            $timestamp = $datetime->getTimestamp();
-        }
-        else {
-            throw new ThreadIoPlugException();
+            $datetime = new \DateTimeImmutable();
         }
 
-        $response = $this->getThreadsIoClient()->remove($user->getThreadIoTraits(), $timestamp);
+        $response = $this->getThreadsIoClient()->remove($user->getThreadIoId(), $datetime);
         return $response->isSuccess();
     }
 }

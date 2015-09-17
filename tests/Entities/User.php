@@ -6,7 +6,7 @@
  * Time: 14:29
  */
 
-namespace Wabel\ThreadsIo\Tests\Entities;
+namespace Wabel\ThreadsIo\Entities;
 
 use Wabel\ThreadsIo\Interfaces\ThreadableInterface;
 
@@ -55,10 +55,9 @@ class User implements ThreadableInterface {
     }
 
     /**
-     * @param ThreadableInterface $user
      */
     public function setUserId($user_id)
     {
-        $this->user = $user_id;
+        $this->userId = $user_id;
     }
 }

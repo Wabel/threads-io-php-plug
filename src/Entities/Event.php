@@ -14,9 +14,9 @@ class Event {
     private $eventId;
     private $dateTime;
 
-    public function __construct($eventId, \DateTime $datetime) {
-        $this->eventId = $eventId;
-        $this->dateTime = $datetime;
+    public function __construct($eventId, $properties, \DateTimeImmutable $datetime = null) {
+        $this->setEventId($eventId);
+        $this->dateTime = $datetime !== null ? $datetime : new \DateTimeImmutable();
     }
 
     /**

@@ -37,6 +37,7 @@ class Response {
      */
     public function isSuccess()
     {
-        return isset($this->getResponse()["success"]) ? $this->getResponse()["success"] : false;
+        $response = json_decode($this->getResponse());
+        return isset($response->success) ? $response->success : false;
     }
 }

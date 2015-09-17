@@ -26,54 +26,60 @@ class ThreadsIoClient {
     private $eventKey;
 
     public function __construct($eventKey) {
-        $this->eventKey = $eventKey;
+        $this->setEventKey($eventKey);
 
-        $this->httpClient = new Client([
+        $this->setHttpClient(new Client([
             'base_url' => 'https://input.threads.io/v1/',
-            'defaults' => ['auth' => [$this->eventKey, ""]]
-        ]);
+            'defaults' => ['auth' => [$this->getEventKey(), ""]]
+        ]));
     }
 
-    public function identify($userId, $timestamp, $traits) {
-        $request = $this->createRequest(self::IDENTIFY_ACTION, [
+    public function identify($userId, \DateTimeImmutable $datetime, $traits) {
+        $params = [
             "userId" => $userId,
-            "timestamp" => $timestamp,
+            "timestamp" => $this->formatDate($datetime),
             "traits" => $traits
-        ]);
+        ];
+        $request = $this->createRequest(self::IDENTIFY_ACTION, $params);
         return $this->call($request);
     }
 
-    public function track($userId, $event, $timestamp, $properties) {
+    public function track($userId, $event,\DateTimeImmutable $datetime, $properties) {
         $request = $this->createRequest(self::TRACK_ACTION, [
             "userId" => $userId,
             "event" => $event,
-            "timestamp" => $timestamp,
+            "timestamp" => $this->formatDate($datetime),
             "properties" => $properties
         ]);
         return $this->call($request);
     }
-    public function page($userId, $name, $properties, $timestamp) {
+
+    public function page($userId, $name, $properties,\DateTimeImmutable $datetime) {
         $request = $this->createRequest(self::VISIT_ACTION, [
             "eventKey" => $this->getEventKey(),
             "userId" => $userId,
             "name" => $name,
             "properties" => $properties,
-            "timestamp" => $timestamp
+            "timestamp" => $this->formatDate($datetime)
         ]);
         return $this->call($request);
     }
 
-    public function remove($userId, $timestamp) {
+    public function remove($userId,\DateTimeImmutable $datetime) {
         $request = $this->createRequest(self::REMOVE_ACTION, [
-            "userId" => $userId,
-            "timestamp" => $timestamp
+            "timestamp" => $this->formatDate($datetime),
+            "userId" => $userId
         ]);
         return $this->call($request);
     }
 
     private function call($request) {
-        $response = $this->httpClient->send($request);
+        $response = $this->getHttpClient()->send($request);
         return new Response($response->getBody());
+    }
+
+    private function formatDate(\DateTimeImmutable $datetime) {
+        return  str_replace('+00:00', '.000Z', $datetime->setTimezone(new \DateTimeZone('UTC'))->format('c'));
     }
 
     /**
