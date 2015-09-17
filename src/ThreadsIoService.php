@@ -49,17 +49,9 @@ class ThreadsIoService {
 
     /**
      * @param ThreadableInterface $user
-     * @return User
-     */
-    public function getThreadsIoUser (ThreadableInterface $user) {
-        return new User($user);
-    }
-
-    /**
-     * @param User $user
      * @param \DateTime $datetime
      */
-    public function identify(User $user, $datetime = null) {
+    public function identify(ThreadableInterface $user, $datetime = null) {
         if($datetime === null) {
             $datetime = time();
         }
@@ -70,9 +62,11 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        $traits = json_encode($user->getTraits());
+        if(!is_array($user->getThreadIoTraits())){
+            throw new ThreadIoPlugException();
+        }
 
-        $response = $this->getThreadsIoClient()->identify($user->getUserId(), $datetime, $traits);
+        $response = $this->getThreadsIoClient()->identify($user->getThreadIoId(), $datetime, $user->getThreadIoTraits());
         return $response->isSuccess();
     }
 
@@ -81,7 +75,7 @@ class ThreadsIoService {
      * @param \DateTime $datetime
      * @param Event $event
      */
-    public function track(User $user, Event $event, $properties = null, $datetime = null) {
+    public function track(ThreadableInterface $user, Event $event, $properties = null, $datetime = null) {
         if($datetime === null) {
             if($event->getDateTime()) {
                 $timestamp = $event->getDateTime()->getTimestamp();
@@ -97,10 +91,7 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        if(is_array($properties)){
-            $properties = json_encode($properties);
-        }
-        else {
+        if(!is_array($properties)){
             throw new ThreadIoPlugException();
         }
 
@@ -113,7 +104,7 @@ class ThreadsIoService {
      * @param User $user
      * @param \DateTime $datetime
      */
-    public function page(Event $event, User $user, $pageTitle, $properties = null, $datetime = null) {
+    public function page(Event $event, ThreadableInterface $user, $pageTitle, $properties = null, $datetime = null) {
         if($datetime === null) {
             if($event->getDateTime()) {
                 $timestamp = $event->getDateTime()->getTimestamp();
@@ -129,16 +120,11 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        if(is_array($properties)){
-            $properties = json_encode($properties);
-        }
-        else {
+        if(!is_array($properties)){
             throw new ThreadIoPlugException();
         }
 
-        $properties = json_encode($properties);
-
-        $response = $this->getThreadsIoClient()->page($event->getEventId(), $user->getUserId(), $pageTitle, $properties, $timestamp);
+        $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $pageTitle, $properties, $timestamp);
         return $response->isSuccess();
     }
 
@@ -146,7 +132,7 @@ class ThreadsIoService {
      * @param User $user
      * @param \DateTime $datetime
      */
-    public function remove(User $user, $datetime = null) {
+    public function remove(ThreadableInterface $user, $datetime = null) {
         if($datetime === null) {
             $timestamp = time();
         }
@@ -157,7 +143,7 @@ class ThreadsIoService {
             throw new ThreadIoPlugException();
         }
 
-        $response = $this->getThreadsIoClient()->remove($user->getUserId(), $timestamp);
+        $response = $this->getThreadsIoClient()->remove($user->getThreadIoTraits(), $timestamp);
         return $response->isSuccess();
     }
 }

@@ -26,56 +26,62 @@ class ThreadsIoClient {
     private $eventKey;
 
     public function __construct($eventKey) {
-        $this->httpClient = new Client(['base_uri' => 'https://input.threads.io/v1/']);
         $this->eventKey = $eventKey;
+
+        $this->httpClient = new Client([
+            'base_url' => 'https://input.threads.io/v1/',
+            'defaults' => ['auth' => [$this->eventKey, ""]]
+        ]);
     }
 
     public function identify($userId, $timestamp, $traits) {
-        $request = $this->createRequest(self::IDENTIFY_ACTION);
-        $request->getBody()->setField("userId", $userId);
-        $request->getBody()->setField("timestamp", $timestamp);
-        $request->getBody()->setField("traits", $traits);
+        $request = $this->createRequest(self::IDENTIFY_ACTION, [
+            "userId" => $userId,
+            "timestamp" => $timestamp,
+            "traits" => $traits
+        ]);
         return $this->call($request);
     }
 
     public function track($userId, $event, $timestamp, $properties) {
-        $request = $this->createRequest(self::TRACK_ACTION);
-        $request->getBody()->setField("userId", $userId);
-        $request->getBody()->setField("event", $event);
-        $request->getBody()->setField("timestamp", $timestamp);
-        $request->getBody()->setField("properties", $properties);
+        $request = $this->createRequest(self::TRACK_ACTION, [
+            "userId" => $userId,
+            "event" => $event,
+            "timestamp" => $timestamp,
+            "properties" => $properties
+        ]);
         return $this->call($request);
     }
     public function page($userId, $name, $properties, $timestamp) {
-        $request = $this->createRequest(self::VISIT_ACTION);
-        $request->getBody()->setField("eventKey", $this->getEventKey());
-        $request->getBody()->setField("userId", $userId);
-        $request->getBody()->setField("name", $name);
-        $request->getBody()->setField("properties", $properties);
-        $request->getBody()->setField("timestamp", $timestamp);
+        $request = $this->createRequest(self::VISIT_ACTION, [
+            "eventKey" => $this->getEventKey(),
+            "userId" => $userId,
+            "name" => $name,
+            "properties" => $properties,
+            "timestamp" => $timestamp
+        ]);
         return $this->call($request);
     }
 
     public function remove($userId, $timestamp) {
-        $request = $this->createRequest(self::REMOVE_ACTION);
-        $request->getBody()->setField("userId", $userId);
-        $request->getBody()->setField("timestamp", $timestamp);
+        $request = $this->createRequest(self::REMOVE_ACTION, [
+            "userId" => $userId,
+            "timestamp" => $timestamp
+        ]);
         return $this->call($request);
-    }
-
-    /**
-     * @param $action
-     * @param string $base_url You can set your $base_url here.
-     *               The preferred way is to initialize the GuzzleHttp\Client with the parameter [
-     * @return \GuzzleHttp\Message\RequestInterface
-     */
-    private function createRequest($action) {
-        return $request = $this->httpClient->createRequest("POST", $action, ['auth' => [$this->eventKey]]);
     }
 
     private function call($request) {
         $response = $this->httpClient->send($request);
         return new Response($response->getBody());
+    }
+
+    /**
+     * @param $action
+     * @return \GuzzleHttp\Message\RequestInterface
+     */
+    private function createRequest($action, $params) {
+        return $request = $this->httpClient->createRequest("POST", $action, ["json" => $params]);
     }
 
     /**
