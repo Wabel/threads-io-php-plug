@@ -16,7 +16,7 @@ class Event {
 
     public function __construct($eventId, $properties, \DateTimeImmutable $datetime = null) {
         $this->setEventId($eventId);
-        $this->dateTime = $datetime !== null ? $datetime : new \DateTimeImmutable();
+        $this->setDateTime($datetime !== null ? $datetime : new \DateTimeImmutable());
     }
 
     /**
@@ -44,7 +44,7 @@ class Event {
     }
 
     /**
-     * @param \DateTime $dateTime
+     * @param \DateTimeImmutable $dateTime
      */
     public function setDateTime($dateTime)
     {
