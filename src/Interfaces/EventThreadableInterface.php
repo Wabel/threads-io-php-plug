@@ -24,7 +24,7 @@ interface EventThreadableInterface {
 
     /**
      * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return /DateTimeImmutable - An array object containing the information to be logged in Threads.io
+     * @return \DateTimeImmutable - An array object containing the information to be logged in Threads.io
      * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
      */
     public function getThreadsIoDateTime();
