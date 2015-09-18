@@ -10,6 +10,7 @@ namespace Wabel\ThreadsIo;
 
 
 use GuzzleHttp\Client;
+use Wabel\ThreadsIo\Exceptions\ThreadsIoPlugException;
 use \Wabel\ThreadsIo\Response\Response;
 
 class ThreadsIoClient {
@@ -35,6 +36,11 @@ class ThreadsIoClient {
     }
 
     public function identify($userId, \DateTimeImmutable $datetime, $traits) {
+
+        if(!is_array($traits)){
+            throw new ThreadsIoPlugException("The traits you passed to the user are wrong. Please verify its format (array) or values.");
+        }
+
         $params = [
             "userId" => $userId,
             "timestamp" => $this->formatDate($datetime),
@@ -45,6 +51,11 @@ class ThreadsIoClient {
     }
 
     public function track($userId, $event,\DateTimeImmutable $datetime, $properties) {
+
+        if(!is_array($properties)){
+            throw new ThreadsIoPlugException("The properties you passed to the tracking function are wrong. Please verify its format (array) or values.");
+        }
+
         $request = $this->createRequest(self::TRACK_ACTION, [
             "userId" => $userId,
             "event" => $event,
@@ -55,6 +66,11 @@ class ThreadsIoClient {
     }
 
     public function page($userId, $name, $properties,\DateTimeImmutable $datetime) {
+
+        if(!is_array($properties)){
+            throw new ThreadsIoPlugException("The properties you passed to the page function are wrong. Please verify its format (array) or values.");
+        }
+
         $request = $this->createRequest(self::VISIT_ACTION, [
             "eventKey" => $this->getEventKey(),
             "userId" => $userId,

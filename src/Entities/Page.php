@@ -9,58 +9,49 @@
 namespace Wabel\ThreadsIo\Entities;
 
 
-use Wabel\ThreadsIo\Interfaces\EventThreadableInterface;
+use Wabel\ThreadsIo\Interfaces\PageThreadableInterface;
 
-class Event implements EventThreadableInterface {
+class Page implements PageThreadableInterface {
 
-    private $eventId;
-    private $dateTime;
+    private $pageTitle;
     private $properties;
+    private $dateTime;
 
-    public function __construct($eventId, $properties = [], \DateTimeImmutable $datetime = null) {
-        $this->setEventId($eventId);
+    public function __construct($pageTitle, $properties = [], \DateTimeImmutable $dateTime = null) {
+        $this->setPageTitle($pageTitle);
         $this->setProperties($properties);
-        $this->setDateTime($datetime !== null ? $datetime : new \DateTimeImmutable());
+        $this->setDateTime($dateTime !== null ? $dateTime : new \DateTimeImmutable());
     }
 
     /**
      * @return string
      */
-    public function getThreadsIoId()
-    {
-        return $this->getEventId();
+    public function getThreadsIoTitle() {
+        return $this->getPageTitle();
     }
 
-    /**
-     * @return string
-     */
-    public function getThreadsIoProperties()
-    {
+    public function getThreadsIoProperties() {
         return $this->getProperties();
     }
 
-    /**
-     * @return string
-     */
-    public function getThreadsIoDateTime()
-    {
+    public function getThreadsIoDateTime() {
         return $this->getDateTime();
     }
 
     /**
      * @return string
      */
-    public function getEventId()
+    public function getPageTitle()
     {
-        return $this->eventId;
+        return $this->pageTitle;
     }
 
     /**
      * @param string $eventId
      */
-    public function setEventId($eventId)
+    public function setPageTitle($pageTitle)
     {
-        $this->eventId = $eventId;
+        $this->pageTitle = $pageTitle;
     }
 
     /**
