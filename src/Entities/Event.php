@@ -88,7 +88,7 @@ class Event implements EventThreadableInterface {
     }
 
     /**
-     * @param array $dateTime
+     * @param array
      */
     public function setProperties($properties)
     {
