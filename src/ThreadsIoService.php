@@ -98,7 +98,7 @@ class ThreadsIoService {
         }
 
         if(!is_array($properties)){
-            throw new ThreadsIoPlugException();
+            throw new ThreadsIoPlugException("The properties you passed to the page function are wrong. Please verify its format and value.");
         }
 
         $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $pageTitle, $properties, $datetime);
