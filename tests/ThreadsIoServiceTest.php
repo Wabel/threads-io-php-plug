@@ -2,7 +2,6 @@
 namespace Wabel\Zoho\CRM\Service;
 
 
-use Psr\Log\NullLogger;
 use Wabel\ThreadsIo\Entities\Event;
 use Wabel\ThreadsIo\Entities\Page;
 use Wabel\ThreadsIo\Entities\User;
