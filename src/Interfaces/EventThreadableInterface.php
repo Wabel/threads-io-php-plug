@@ -11,7 +11,7 @@ namespace Wabel\ThreadsIo\Interfaces;
  * Interface EventThreadableInterface
  * @package Wabel\ThreadsIo\Interfaces
  */
-interface EventThreadableInterface {
+interface EventThreadableInterface extends AbstractThreadableInterface {
     /**
      * This getter returns the ID to be used in Threads.io to identify an Event.
      * @return string               - The output should be a string as requested by the API

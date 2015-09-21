@@ -9,7 +9,7 @@ namespace Wabel\ThreadsIo\Interfaces;
  * Interface EventThreadableInterface
  * @package Wabel\ThreadsIo\Interfaces
  */
-interface PageThreadableInterface {
+interface PageThreadableInterface extends AbstractThreadableInterface {
 
     /**
      * This getter returns a string to be used in Threads.io as the title of a visited Page.

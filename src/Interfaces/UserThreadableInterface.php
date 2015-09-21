@@ -9,7 +9,7 @@ namespace Wabel\ThreadsIo\Interfaces;
  * Interface UserThreadableInterface
  * @package Wabel\ThreadsIo\Interfaces
  */
-interface UserThreadableInterface {
+interface UserThreadableInterface extends AbstractThreadableInterface {
     /**
      * This getter returns the ID to be used in Threads.io to identify a user.
      * @return string       - The output should be a string as requested by the API
