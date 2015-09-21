@@ -35,7 +35,7 @@ class ThreadsIoService {
      * Service constructor
      * @param ThreadsIoClient $threadsIoClient
      */
-    function __construct(ThreadsIoClient $threadsIoClient)
+    public function __construct(ThreadsIoClient $threadsIoClient)
     {
         $this->setThreadsIoClient($threadsIoClient);
     }

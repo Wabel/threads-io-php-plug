@@ -188,7 +188,7 @@ class ThreadsIoClient {
      * @return \GuzzleHttp\Message\RequestInterface
      */
     private function createRequest($action, $params) {
-        return $request = $this->httpClient->createRequest("POST", $action, ["json" => $params]);
+        return $this->httpClient->createRequest("POST", $action, ["json" => $params]);
     }
 
     /**
