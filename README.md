@@ -26,18 +26,17 @@ $client = new ThreadsIoClient($eventKey);
 // The ThreadsIoService class is the high level class that you will use with the Entities to make your API Calls
 // It takes your fresh new ThreadsIoClient object in argument to be instantiate
 $service = new ThreadsIoClient($client);
-
 ```
 
 The two main compound of this package are the **ThreadsIoClient** and **ThreadsIoService**.
 
 The **ThreadsIoClient** is a programmatic implementation of the Threads.io API. It ensures that the data are sent with the format expected by the API.
-The **ThreadsIoService** is the main class to instantiate and use. It's meant to use the package Entity system, meaning manipulating Users, Event and Page objects easily. Every call methods expects an object implementing the <Entity>ThreadableInterface or one of the provided Entity of this package.
+The **ThreadsIoService** is the main class to instantiate and use. It's meant to use the package Entity system, meaning manipulating **Users**, **Event** and **Page** objects easily. Every call methods expects an object implementing the **<Entity>ThreadableInterface** or one of the provided Entity of this package.
 
 Interfaces and Entites
 ----------------------
 
-As explained earlier, the ThreadsIoService is manipulating entities. A User entity, Event entity or Page entity is the instantiation of an existing class of your PHP application implementing respectively the UserThreadableInterface, EventThreadableInterface, PageThreadableInterface. For instance, a MemberBean class that is used for manipulating users in your application is a good candidate for implementing the UserThreadable interface.
+As explained earlier, the **ThreadsIoService** is manipulating entities. A User entity, Event entity or Page entity is the instantiation of an existing class of your PHP application implementing respectively the **UserThreadableInterface**, **EventThreadableInterface**, **PageThreadableInterface**. For instance, a Member class that is used for manipulating users in your application is a good candidate for implementing the **UserThreadable** interface.
 If you have no classes that could implement the ThreadableInterfaces, you can instantiate manually one of the Wabel\Entities (User, Event or Page) provided in this package.
 
 ```php
@@ -60,7 +59,6 @@ $threadsIoUser = new User("ID254632", [
 // ... you'll be able to use them both with the ThreadsIoService
 $service->identify($yourUser);
 $service->identify($threadsIoUser);
-
 ```
 
 How to use the ThreadsIoService
@@ -116,4 +114,4 @@ $page = new Page("New plane crash: Oceanic 815 on fire in the Pacific Ocean", [
 About Threads.io
 ----------------
 [Threads.io](https://threads.io/) provide a service meant for sending "Automated Behavior-Driven Emails" based on user activity and workflow rules setted by the account administrator.
-You can consult the original API [here][https://docs.threads.io/]. Feel free to make pull requests if you notice any API evolutions.
+You can consult the original API [here](https://docs.threads.io/). Feel free to make pull requests if you notice any API evolutions.
