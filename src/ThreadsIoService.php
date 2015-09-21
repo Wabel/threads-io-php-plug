@@ -2,17 +2,15 @@
 /**
  * This was developed by the Tech Team of Wabel.com
  * Author : Michael WIZMAN
- * Contact : micahelwizman@hotmail.com
+ * Contact : michaelwizman@hotmail.com
  */
 
 namespace Wabel\ThreadsIo;
-use Wabel\ThreadsIo\Entities\User;
+
 use Wabel\ThreadsIo\Exceptions\ThreadsIoPlugException;
 use Wabel\ThreadsIo\Interfaces\EventThreadableInterface;
 use Wabel\ThreadsIo\Interfaces\PageThreadableInterface;
 use Wabel\ThreadsIo\Interfaces\UserThreadableInterface;
-use Wabel\ThreadsIo\Entities\Event;
-
 
 /**
  * This is the class that should be used to communicate easily with your Threads.io account
@@ -29,14 +27,12 @@ class ThreadsIoService {
 
     /**
      * An instance of the ThreadsIoClient
-     *
      * @var ThreadsIoClient
      */
     private $threadsIoClient;
 
     /**
-     * Constructor
-     *
+     * Service constructor
      * @param ThreadsIoClient $threadsIoClient
      */
     function __construct(ThreadsIoClient $threadsIoClient)
@@ -64,8 +60,9 @@ class ThreadsIoService {
 
     /**
      * @param UserThreadableInterface $user
-     * @param Event $event
+     * @param EventThreadableInterface $event
      * @param \DateTimeImmutable $datetime
+     *
      * @throws ThreadsIoPlugException
      * @return bool
      */
@@ -79,24 +76,27 @@ class ThreadsIoService {
     }
 
     /**
-     * @param User $user
+     * @param UserThreadableInterface $user
+     * @param PageThreadableInterface $page
      * @param \DateTimeImmutable $datetime
+     *
      * @throws ThreadsIoPlugException
      * @return bool
      */
-    public function page(UserThreadableInterface $user, PageThreadableInterface $visit, \DateTimeImmutable $datetime = null) {
+    public function page(UserThreadableInterface $user, PageThreadableInterface $page, \DateTimeImmutable $datetime = null) {
 
         if($datetime === null) {
-            $datetime = $visit->getThreadsIoDateTime();
+            $datetime = $page->getThreadsIoDateTime();
         }
 
-        $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $visit->getThreadsIoTitle(), $visit->getThreadsIoProperties(), $datetime);
+        $response = $this->getThreadsIoClient()->page($user->getThreadIoId(), $page->getThreadsIoTitle(), $page->getThreadsIoProperties(), $datetime);
         return $response->isSuccess();
     }
 
     /**
-     * @param User $user
+     * @param UserThreadableInterface $user
      * @param \DateTimeImmutable $datetime
+     *
      * @return bool
      */
     public function remove(UserThreadableInterface $user, \DateTimeImmutable $datetime = null) {

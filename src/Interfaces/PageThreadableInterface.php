@@ -1,40 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BadaBing
- * Date: 14/09/2015
- * Time: 15:05
- */
 
 namespace Wabel\ThreadsIo\Interfaces;
 
 /**
  * Implements the ability for user entity to be tracked by Threads.io
- * @see https://docs.threads.io/docs/identify-a-user
+ * @see https://docs.threads.io/docs/record-a-page-view
  *
- * Interface UserThreadableInterface
- * @package \ThreadsIo
+ * Interface EventThreadableInterface
+ * @package Wabel\ThreadsIo\Interfaces
  */
 interface PageThreadableInterface {
 
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return array - An array object containing the information to be logged in Threads.io
-     * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
+     * This getter returns a string to be used in Threads.io as the title of a visited Page.
+     * @return string
      */
     public function getThreadsIoTitle();
 
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return array - An array object containing the information to be logged in Threads.io
-     * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
+     * This getter returns an array containing the information to be logged in Threads.io
+     * @return array
      */
     public function getThreadsIoProperties();
 
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return \DateTimeImmutable - An array object containing the information to be logged in Threads.io
-     * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
+     * This getter returns the DateTimeImmutable of when the Page has been visited.
+     * @return \DateTimeImmutable
      */
     public function getThreadsIoDateTime();
 }

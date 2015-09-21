@@ -1,38 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BadaBing
- * Date: 14/09/2015
- * Time: 15:05
- */
 
 namespace Wabel\ThreadsIo\Interfaces;
 
 /**
- * Implements the ability for user entity to be tracked by Threads.io
- * @see https://docs.threads.io/docs/identify-a-user
+ * Implements the ability for an entity to be referenced as an Event by Threads.io
+ * @see https://docs.threads.io/docs/track-an-event
  *
- * Interface UserThreadableInterface
- * @package \ThreadsIo
+ * If no entity in your app would fit this interface, use the Entities\Event class
+ *
+ * Interface EventThreadableInterface
+ * @package Wabel\ThreadsIo\Interfaces
  */
 interface EventThreadableInterface {
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return string       - The output should be a string as requested by the API
+     * This getter returns the ID to be used in Threads.io to identify an Event.
+     * @return string               - The output should be a string as requested by the API
      */
     public function getThreadsIoId();
 
     /**
      * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return \DateTimeImmutable - An array object containing the information to be logged in Threads.io
-     * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
+     * @return \DateTimeImmutable   - An array  containing the DateTime of when the Event occurred
      */
     public function getThreadsIoDateTime();
 
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return array - An array object containing the information to be logged in Threads.io
-     * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
+     * This getter returns an array object containing the information to be logged in Threads.io.
+     * @return array
+     * @see https://docs.threads.io/docs/track-an-event for json properties examples.
      */
     public function getThreadsIoProperties();
 }

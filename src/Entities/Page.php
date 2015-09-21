@@ -1,22 +1,43 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BadaBing
- * Date: 14/09/2015
- * Time: 19:06
- */
 
 namespace Wabel\ThreadsIo\Entities;
 
-
 use Wabel\ThreadsIo\Interfaces\PageThreadableInterface;
 
+/**
+ * This class was written to help in the case where you have no classes in your application
+ * that could implement the PageThreadableInterface. If you are in this situation, you can
+ * instantiate a Page object to be used with the ThreadsIoService.
+ *
+ * Class Page
+ * @package Wabel\ThreadsIo\Entities
+ */
 class Page implements PageThreadableInterface {
 
+    /**
+     * Title of the page
+     * @var string
+     */
     private $pageTitle;
+
+    /**
+     * Properties concerning the current page
+     * @var array
+     */
     private $properties;
+
+    /**
+     * DateTime of when the Page is visited
+     * @var \DateTimeImmutable
+     */
     private $dateTime;
 
+    /**
+     * Page constructor
+     * @param string $pageTitle
+     * @param array $properties
+     * @param \DateTimeImmutable $dateTime
+     */
     public function __construct($pageTitle, $properties = [], \DateTimeImmutable $dateTime = null) {
         $this->setPageTitle($pageTitle);
         $this->setProperties($properties);
@@ -24,21 +45,31 @@ class Page implements PageThreadableInterface {
     }
 
     /**
+     * Returns the name of the Threads.io Page the user just visited
      * @return string
      */
     public function getThreadsIoTitle() {
         return $this->getPageTitle();
     }
 
+    /**
+     * Returns an array of parameters to pass with the Page visit
+     * @return array
+     */
     public function getThreadsIoProperties() {
         return $this->getProperties();
     }
 
+    /**
+     * Returns a DateTimeImmutable of when the Page was visited
+     * @return \DateTime
+     */
     public function getThreadsIoDateTime() {
         return $this->getDateTime();
     }
 
     /**
+     * Getter of $pageTitle
      * @return string
      */
     public function getPageTitle()
@@ -47,7 +78,8 @@ class Page implements PageThreadableInterface {
     }
 
     /**
-     * @param string $eventId
+     * Setter of $pageTitle
+     * @param string $pageTitle
      */
     public function setPageTitle($pageTitle)
     {
@@ -55,6 +87,7 @@ class Page implements PageThreadableInterface {
     }
 
     /**
+     * Getter of $dateTime
      * @return \DateTime
      */
     public function getDateTime()
@@ -63,6 +96,7 @@ class Page implements PageThreadableInterface {
     }
 
     /**
+     * Setter of $dateTime
      * @param \DateTimeImmutable $dateTime
      */
     public function setDateTime($dateTime)
@@ -71,6 +105,7 @@ class Page implements PageThreadableInterface {
     }
 
     /**
+     * Getter of $properties
      * @return array
      */
     public function getProperties()
@@ -79,7 +114,8 @@ class Page implements PageThreadableInterface {
     }
 
     /**
-     * @param array $dateTime
+     * Setter of $properties
+     * @param array $properties
      */
     public function setProperties($properties)
     {

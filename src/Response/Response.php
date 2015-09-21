@@ -1,23 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BadaBing
- * Date: 14/09/2015
- * Time: 18:34
- */
 
 namespace Wabel\ThreadsIo\Response;
 
 
+/**
+ * Basic Response handler for the package
+ *
+ * Class Response
+ * @package Wabel\ThreadsIo\Response
+ */
 class Response {
+
+    /**
+     * An array representing the JSON response
+     * @var array
+     */
     private $response;
 
-
-    public function __construct($response) {
-        $this->setResponse($response);
-    }
     /**
-     * @return mixed
+     * Response constructor
+     * @param string $response A string formatted in JSON
+     */
+    public function __construct($response) {
+        $this->setResponse(json_decode($response));
+    }
+
+    /**
+     * Getter of $response
+     * @return array
      */
     public function getResponse()
     {
@@ -25,7 +35,8 @@ class Response {
     }
 
     /**
-     * @param mixed $response
+     * Setter of $response
+     * @param array $response
      */
     public function setResponse($response)
     {
@@ -33,11 +44,12 @@ class Response {
     }
 
     /**
-     * @return mixed
+     * Returns whether or not the API call is a success.
+     * @return bool
      */
     public function isSuccess()
     {
-        $response = json_decode($this->getResponse());
+        $response = $this->getResponse();
         return isset($response->success) ? $response->success : false;
     }
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: BadaBing
- * Date: 14/09/2015
- * Time: 15:05
- */
 
 namespace Wabel\ThreadsIo\Interfaces;
 
@@ -13,7 +7,7 @@ namespace Wabel\ThreadsIo\Interfaces;
  * @see https://docs.threads.io/docs/identify-a-user
  *
  * Interface UserThreadableInterface
- * @package \ThreadsIo
+ * @package Wabel\ThreadsIo\Interfaces
  */
 interface UserThreadableInterface {
     /**
@@ -23,8 +17,8 @@ interface UserThreadableInterface {
     public function getThreadIoId();
 
     /**
-     * This getter returns the ID to be used in Threads.io to identify a user.
-     * @return array - An array object containing the information to be logged in Threads.io
+     * This getter returns an array containing the information to be logged about the User in Threads.io
+     * @return array
      * @see https://docs.threads.io/docs/identify-a-user for json traits examples.
      */
     public function getThreadIoTraits();
