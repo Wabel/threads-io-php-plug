@@ -118,3 +118,7 @@ About Threads.io
 ----------------
 [Threads.io](https://threads.io/) provide a service meant for sending "Automated Behavior-Driven Emails" based on user activity and workflow rules setted by the account administrator.
 You can consult the original API [here](https://docs.threads.io/). Feel free to make any pull requests if you notice any API upgrades.
+
+About Wabel
+----------------
+[Wabel](https://www.wabel.com) is the online marketplace for the european food industry. In our effort to integrate our web platform to more and more web services, we (Wabel's dev team!) are happy to share our work with Threads.io's community.
