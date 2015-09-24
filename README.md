@@ -21,7 +21,7 @@ use \Wabel\ThreadsIo\ThreadsIoService;
 
 // The ThreadsIoClient class is the low level class used to make the API calls.
 // It takes your eventKey in parameter, which is provided to you by Threads.io
-$client = new ThreadsIoClient($eventKey);
+$client = new ThreadsIoClient(YOUR_EVENT_KEY);
 
 // The ThreadsIoService class is the high level class that you will use with the Entities to make your API Calls
 // It takes your fresh new ThreadsIoClient object in argument to be instantiate
