@@ -44,10 +44,10 @@ use \Wabel\ThreadsIo\Entities\User;
 use \Wabel\ThreadsIo\Entities\Event;
 use \Wabel\ThreadsIo\Entities\Page;
 
-// Whether you retrieve a UserThreadableInterface from your DB...
+// Whether you retrieve an object implementing the UserThreadableInterface from your DB...
 $yourUser = $dao->getMemberById(2103);
 
-// ...or that you create one using the provided Entity class...
+// ...or that you create one using the provided entity class User...
 $threadsIoUser = new User("ID254632", [
     "name" => "Jesus Christ",
     "company" => "Christian Church",
@@ -65,7 +65,7 @@ How to use the ThreadsIoService
 -------------------------------
 
 In version 1.0.0, we introduced the first use of the basic functions "identify", "track", "page" and "remove".
-Here's an extensive use of the service :
+Here's a basic usage of the service :
 
 
 ```php
@@ -75,11 +75,8 @@ use \Wabel\ThreadsIo\Entities\Page;
 use \Wabel\ThreadsIo\ThreadsIoClient;
 use \Wabel\ThreadsIo\ThreadsIoService;
 
-// ThreadsIoService instantiation
-$client = new ThreadsIoClient($eventKey);
-$service = new ThreadsIoClient($client);
-
-// Gathering entities
+// Instantiate an object that implements one of the Wabel\ThreadsIo\Interfaces
+// (one of the provided classes in this case)
 $user = new User("4815162342", [
      "name" => "Hugo Reyes",
      "status" => "Lost",
@@ -97,21 +94,27 @@ $page = new Page("New plane crash: Oceanic 815 on fire in the Pacific Ocean", [
      "time_spent_on_page" => "18s"
  ]);
 
- // Identify a user
- $service->identify($user);
+// Then grab or create a ThreadsIoService object
+$client = new ThreadsIoClient($eventKey);
+$service = new ThreadsIoService($client);
 
- // Track an event
- $service->track($user, $event);
+// Your now able to :
 
- // Track a page view
- $service->page($user, $page);
+// Identify a user
+$service->identify($user);
 
- // Remove a user
- $service->identify($user);
+// Track an event
+$service->track($user, $event);
+
+// Track a page view
+$service->page($user, $page);
+
+// Remove a user
+$service->remove($user);
 
 ```
 
 About Threads.io
 ----------------
 [Threads.io](https://threads.io/) provide a service meant for sending "Automated Behavior-Driven Emails" based on user activity and workflow rules setted by the account administrator.
-You can consult the original API [here](https://docs.threads.io/). Feel free to make pull requests if you notice any API evolutions.
+You can consult the original API [here](https://docs.threads.io/). Feel free to make any pull requests if you notice any API upgrades.
