@@ -121,4 +121,4 @@ You can consult the original API [here](https://docs.threads.io/). Feel free to 
 
 About Wabel
 ----------------
-[Wabel](https://www.wabel.com) is the online marketplace for the european food industry. In our effort to integrate our web platform to more and more web services, we (Wabel's dev team!) are happy to share our work with Threads.io's community.
+[Wabel](http://www.wabel.com) is the online marketplace for the european food industry. In our effort to integrate our web platform to more and more web services, we (Wabel's dev team!) are happy to share our work with Threads.io's community.
